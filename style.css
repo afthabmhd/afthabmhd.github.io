@@ -1,13 +1,27 @@
 /* ---------- RESET & BASE ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  scroll-behavior: auto !important;
+}
+
 body {
   font-family: 'Press Start 2P', 'Courier New', monospace;
   background-color: #1a1a1a;
   color: #f0f0f0;
-  height: 100vh;
-  overflow: hidden;
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* Force scroll to top always */
+html {
+  scroll-top: 0 !important;
 }
 
 /* ---------- MOBILE/DESKTOP VISIBILITY ---------- */
@@ -109,26 +123,32 @@ body {
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: 3fr 1fr;
-    gap: 30px 50px;
-    padding: 30px 50px 50px;
+    gap: 20px 30px;
+    padding: 20px 30px 30px;
     grid-template-areas:
       "title  title"
       "terminal character";
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
   }
   #main-terminal.hidden { display: none; }
 
   #title-block {
     grid-area: title;
     text-align: center;
-    padding: 20px 0;
+    padding: 15px 0;
+    height: fit-content;
   }
   #title-block h1 {
-    font-size: 48px;
+    font-size: 42px;
     letter-spacing: 2px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   .tag-line {
-    font-size: 16px;
+    font-size: 14px;
     color: #286c40;
   }
 
@@ -137,9 +157,10 @@ body {
     grid-area: terminal;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* Important: allows flex items to shrink below content size */
-    overflow: hidden; /* Prevent the entire area from expanding */
-    gap: 15px; /* Space between header and terminal */
+    min-height: 0;
+    max-height: calc(100vh - 140px); /* Account for title block */
+    overflow: hidden;
+    gap: 12px;
   }
   
   .terminal-header {
@@ -152,26 +173,27 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-shrink: 0; /* Prevent header from shrinking */
+    flex-shrink: 0;
   }
   
   #terminal-output {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 16px;
     border-left: 2px solid #286c40;
     border-top: 2px solid #286c40;
     box-sizing: border-box;
-    min-height: 0; /* Important: allows the element to shrink */
-    max-height: 60vh; /* Limit terminal height to 60% of viewport */
+    min-height: 0;
+    max-height: calc(100vh - 220px); /* Constrain terminal height */
   }
+  
   #terminal-input {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 15px 0;
+    padding: 12px 0;
     border-top: 1px solid #286c40;
-    flex-shrink: 0; /* Prevent input area from shrinking */
+    flex-shrink: 0;
   }
 
   .character-area {
@@ -180,8 +202,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 20px;
-    gap: 20px;
+    padding: 15px;
+    gap: 15px;
+    max-height: calc(100vh - 140px); /* Constrain character area height */
+    overflow: hidden; /* Hide overflow to crop GIF */
+    position: relative;
   }
   
   .character-info {
@@ -203,8 +228,14 @@ body {
   }
   
   #character-png {
-    width: 380px;
+    width: 320px;
+    height: auto;
     image-rendering: pixelated;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+    position: relative;
+    top: 0;
   }
 }
 
@@ -212,69 +243,77 @@ body {
 @media (max-width: 768px) {
   #main-terminal {
     height: 100vh;
-    padding: 20px 15px 20px 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 80px 1fr;
+    gap: 12px 12px;
+    grid-template-areas:
+      "title character"
+      "terminal terminal";
     overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   #main-terminal.hidden { display: none; }
 
-  /* Top section with title and character */
-  .mobile-header {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 15px;
-    flex-shrink: 0; /* Never shrink */
-    min-height: 80px;
-    max-height: 80px;
-  }
-
   #title-block {
+    grid-area: title;
+    text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 8px 0;
+    padding: 6px 0;
+    height: fit-content;
   }
   #title-block h1 {
-    font-size: 4.5vw;
+    font-size: 4.2vw;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     line-height: 1;
     white-space: nowrap;
     overflow: hidden;
   }
   .tag-line {
-    font-size: 2.2vw;
+    font-size: 2vw;
     color: #286c40;
     white-space: nowrap;
     overflow: hidden;
   }
 
   .character-area {
+    grid-area: character;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Align to top */
     justify-content: center;
-    padding: 5px;
-    overflow: hidden;
+    padding: 6px;
+    height: 80px; /* Fixed height */
+    overflow: hidden; /* Crop overflow */
+    position: relative;
   }
 
   #mobile-character-png {
-    width: 70px;
-    height: 70px;
+    width: 85px;
+    height: auto;
     image-rendering: pixelated;
     object-fit: cover;
     object-position: center top;
+    position: relative;
+    top: 0;
   }
 
   .content-area {
-    flex: 1;
+    grid-area: terminal;
+    width: 100%;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    max-height: calc(100vh - 110px); /* Account for title and character area */
     overflow: hidden;
-    gap: 10px;
-    max-height: calc(100vh - 140px); /* Strict height limit */
+    gap: 8px;
   }
   
   .terminal-header {
@@ -310,17 +349,17 @@ body {
     border-left: 2px solid #286c40;
     border-top: 2px solid #286c40;
     box-sizing: border-box;
-    min-height: 100px; /* Minimum height */
-    max-height: calc(100vh - 220px); /* Maximum height */
+    min-height: 0;
     font-size: 9px;
     line-height: 1.4;
+    max-height: calc(100vh - 180px); /* Constrain mobile terminal height */
   }
   
   #terminal-input {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-top: 1px solid #286c40;
     flex-shrink: 0;
   }
