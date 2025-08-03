@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Aftab Muhammad - Terminal Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -22,21 +22,24 @@
 
   <!-- Main -->
   <div id="main-terminal" class="hidden">
-    <div id="title-block">
-      <h1>AFTAB MUHAMMAD</h1>
-      <p class="tag-line">Developer. Writer. Teacher</p>
+    <!-- Header section for mobile (title + character side by side) -->
+    <div class="header-section">
+      <div id="title-block">
+        <h1>AFTAB MUHAMMAD</h1>
+        <p class="tag-line">Developer. Writer. Teacher</p>
+      </div>
+      <div class="character-area">
+        <img id="character-png" src="assets/gifs/char.gif" alt="Pixel Character">
+      </div>
     </div>
 
+    <!-- Terminal content -->
     <div class="content-area">
       <div id="terminal-output"></div>
       <div id="terminal-input">
         <span class="prompt">welcome@portfolio:~ $</span>
-        <input type="text" id="command-input" placeholder="type your command here..." autocomplete="off" spellcheck="false">
+        <input type="text" id="command-input" placeholder="type here..." autocomplete="off" spellcheck="false">
       </div>
-    </div>
-
-    <div class="character-area">
-      <img id="character-png" src="assets/gifs/char.gif" width="320" alt="Pixel Character">
     </div>
   </div>
 
