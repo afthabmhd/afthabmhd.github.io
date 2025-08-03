@@ -28,44 +28,76 @@ body {
 
 /* ---------- LOADING ---------- */
 #loading-screen {
-  position: fixed; inset: 0; background: #1a1a1a;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
-  padding-top: 40vh; z-index: 1000;
+  position: fixed; 
+  inset: 0; 
+  background: #1a1a1a;
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  z-index: 1000;
 }
-#loading-bar-container { width: 300px; height: 12px; border: 2px solid #286c40; margin-bottom: 30px; }
-#loading-bar { height: 100%; width: 0%; background-color: #286c40; animation: loadBar 3s linear forwards; }
+
+#loading-bar-container { 
+  width: min(300px, 80vw); 
+  height: 12px; 
+  border: 2px solid #286c40; 
+  margin-bottom: 30px; 
+}
+
+#loading-bar { 
+  height: 100%; 
+  width: 0%; 
+  background-color: #286c40; 
+  animation: loadBar 3s linear forwards; 
+}
+
 @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
 
 #loading-text { 
-  width: 100%; 
-  text-align: left; 
-  padding-left: calc(50% - 200px);
+  width: 100%;
+  max-width: min(90vw, 500px);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-}
-
-@media (max-width: 768px) {
-  #loading-text {
-    padding-left: calc(50% - 140px);
-  }
-}
-
-@media (max-width: 480px) {
-  #loading-text {
-    padding-left: calc(50% - 100px);
-  }
+  padding: 0 5vw;
 }
 
 .line { 
-  margin: 8px 0; 
+  margin: clamp(4px, 1vh, 12px) 0; 
   min-height: 1.2em; 
-  font-size: clamp(10px, 2.5vw, 12px);
+  font-size: clamp(7px, 2.5vw, 14px);
   white-space: nowrap;
-  overflow: visible;
-  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  word-break: keep-all;
+}
+
+/* Specific mobile adjustments for loading text */
+@media (max-width: 480px) {
+  #loading-text {
+    padding: 0 3vw;
+    max-width: 94vw;
+  }
+  
+  .line {
+    font-size: clamp(6px, 3vw, 12px);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 320px) {
+  .line {
+    font-size: clamp(5px, 3.5vw, 10px);
+  }
 }
 
 /* ---------- DESKTOP GRID ---------- */
@@ -248,12 +280,25 @@ body {
     border: 1px solid #286c40;
     border-radius: 4px;
     padding: 8px 12px;
-    font-size: 9px;
+    font-size: 8px;
     box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
     flex-shrink: 0; /* Prevent header from shrinking */
+    flex-wrap: wrap;
+  }
+  
+  .terminal-header .terminal-prompt {
+    flex-shrink: 0;
+  }
+  
+  .terminal-header .terminal-help-text {
+    font-size: 7px;
+    text-align: right;
+    flex: 1;
+    min-width: 0;
   }
   
   #terminal-output {
@@ -264,28 +309,32 @@ body {
     border-top: 2px solid #286c40;
     box-sizing: border-box;
     min-height: 0; /* Important: allows the element to shrink */
-    font-size: 10px;
+    font-size: 9px;
+    line-height: 1.4;
   }
   
   #terminal-input {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     padding: 10px 0;
     border-top: 1px solid #286c40;
     flex-shrink: 0; /* Prevent input area from shrinking */
   }
   
   #terminal-input .prompt {
-    font-size: 9px;
+    font-size: 8px;
+    flex-shrink: 0;
   }
   
   #command-input {
-    font-size: 9px;
+    font-size: 8px;
+    flex: 1;
+    min-width: 0;
   }
   
   #command-input::placeholder {
-    font-size: 8px;
+    font-size: 7px;
   }
 }
 
@@ -314,4 +363,18 @@ body {
 
 .terminal-help-text {
   color: #f0f0f0;
+}
+
+/* ---------- Output Lines ---------- */
+.output-line {
+  margin: 4px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .output-line {
+    font-size: 9px;
+    line-height: 1.4;
+  }
 }
