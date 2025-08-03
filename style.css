@@ -311,22 +311,22 @@ html {
     display: flex;
     flex-direction: column;
     min-height: 0;
-    max-height: calc(100vh - 100px); /* Smaller terminal - account for smaller title area */
+    max-height: calc(100vh - 120px); /* Much smaller terminal */
     overflow: hidden;
-    gap: 6px;
+    gap: 4px;
   }
   
   .terminal-header {
     background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
     border: 1px solid #286c40;
     border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 8px;
+    padding: 6px 10px;
+    font-size: 7px;
     box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     flex-shrink: 0;
     flex-wrap: wrap;
   }
@@ -336,7 +336,7 @@ html {
   }
   
   .terminal-header .terminal-help-text {
-    font-size: 7px;
+    font-size: 6px;
     text-align: right;
     flex: 1;
     min-width: 0;
@@ -345,38 +345,38 @@ html {
   #terminal-output {
     flex: 1;
     overflow-y: auto;
-    padding: 8px;
+    padding: 6px;
     border-left: 2px solid #286c40;
     border-top: 2px solid #286c40;
     box-sizing: border-box;
     min-height: 0;
-    font-size: 8px;
-    line-height: 1.3;
-    max-height: calc(100vh - 160px); /* Smaller terminal height for mobile */
+    font-size: 7px;
+    line-height: 1.2;
+    max-height: calc(100vh - 180px); /* Much smaller terminal height */
   }
   
   #terminal-input {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 0;
+    gap: 4px;
+    padding: 4px 0;
     border-top: 1px solid #286c40;
     flex-shrink: 0;
   }
   
   #terminal-input .prompt {
-    font-size: 7px;
+    font-size: 6px;
     flex-shrink: 0;
   }
   
   #command-input {
-    font-size: 7px;
+    font-size: 6px;
     flex: 1;
     min-width: 0;
   }
   
   #command-input::placeholder {
-    font-size: 6px;
+    font-size: 5px;
   }
 }
 
@@ -416,7 +416,7 @@ html {
 
 @media (max-width: 768px) {
   .output-line {
-    font-size: 8px;
-    line-height: 1.3;
+    font-size: 7px;
+    line-height: 1.2;
   }
 }
