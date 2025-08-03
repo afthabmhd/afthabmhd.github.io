@@ -1,3 +1,26 @@
+// ---------- Force zoom reset ----------
+function forceZoomReset() {
+  // Force viewport reset
+  const viewport = document.querySelector('meta[name="viewport"]');
+  if (viewport) {
+    viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+  }
+  
+  // Force scroll and zoom reset
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  
+  // Additional zoom reset methods
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 100);
+    });
+  }
+}
+
 // ---------- Force scroll to top ----------
 function forceScrollToTop() {
   window.scrollTo(0, 0);
@@ -7,8 +30,14 @@ function forceScrollToTop() {
 
 // Prevent any scrolling and keep page at top
 window.addEventListener('scroll', forceScrollToTop);
-window.addEventListener('resize', forceScrollToTop);
-document.addEventListener('DOMContentLoaded', forceScrollToTop);
+window.addEventListener('resize', () => {
+  forceScrollToTop();
+  forceZoomReset();
+});
+document.addEventListener('DOMContentLoaded', () => {
+  forceScrollToTop();
+  forceZoomReset();
+});
 
 // Override any scroll attempts
 window.addEventListener('wheel', function(e) {
@@ -34,6 +63,25 @@ document.addEventListener('touchend', function(e) {
   }
   lastTouchEnd = now;
 }, false);
+
+// Handle input focus/blur to prevent and reset zoom
+document.addEventListener('focusin', function(e) {
+  if (e.target.tagName === 'INPUT') {
+    setTimeout(() => {
+      forceZoomReset();
+      forceScrollToTop();
+    }, 300);
+  }
+});
+
+document.addEventListener('focusout', function(e) {
+  if (e.target.tagName === 'INPUT') {
+    setTimeout(() => {
+      forceZoomReset();
+      forceScrollToTop();
+    }, 300);
+  }
+});
 
 // ---------- Scramble-from-blank ----------
 function scrambleText(el, finalText) {
@@ -284,8 +332,11 @@ function initTerminal() {
       input.focus();
       output.scrollTop = output.scrollHeight;
       
-      // Ensure page stays at top after command execution
-      forceScrollToTop();
+      // Force zoom reset after command execution
+      setTimeout(() => {
+        forceZoomReset();
+        forceScrollToTop();
+      }, 100);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (historyIndex > 0) {
@@ -306,7 +357,11 @@ function initTerminal() {
 
   document.addEventListener('click', () => {
     input.focus();
-    forceScrollToTop(); // Ensure scroll stays at top on click
+    // Force zoom reset on any click
+    setTimeout(() => {
+      forceZoomReset();
+      forceScrollToTop();
+    }, 100);
   });
 }
 
@@ -318,5 +373,10 @@ const style = document.createElement('style');
 style.textContent = '@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }';
 document.head.appendChild(style);
 
-// Continuously force scroll to top
-setInterval(forceScrollToTop, 100);
+// Continuously force scroll to top and zoom reset
+setInterval(() => {
+  forceScrollToTop();
+  if (window.innerWidth <= 768) { // Only on mobile
+    forceZoomReset();
+  }
+}, 500); // Check every 500ms instead of 100ms to be less aggressive
