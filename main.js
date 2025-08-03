@@ -1,3 +1,24 @@
+// ---------- Force scroll to top ----------
+function forceScrollToTop() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
+// Prevent any scrolling and keep page at top
+window.addEventListener('scroll', forceScrollToTop);
+window.addEventListener('resize', forceScrollToTop);
+document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+// Override any scroll attempts
+window.addEventListener('wheel', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
+window.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
 // ---------- Scramble-from-blank ----------
 function scrambleText(el, finalText) {
   el.textContent = '';
@@ -49,6 +70,7 @@ setTimeout(() => {
   setTimeout(() => {
     loadingScreen.style.display = 'none';
     mainTerminal.classList.remove('hidden');
+    forceScrollToTop(); // Ensure we're at top when terminal loads
     initTerminal();
   }, 500);
 }, 5000);
@@ -197,19 +219,8 @@ function initTerminal() {
   const contentArea = document.querySelector('.content-area');
   const characterArea = document.querySelector('.character-area');
   
-  // Make character bigger and crop overflow for desktop
-  const characterImg = document.getElementById('character-png');
-  if (characterImg) {
-    characterImg.style.width = '500px';
-    characterImg.style.height = 'auto';
-    characterImg.style.objectFit = 'cover';
-    characterImg.style.objectPosition = 'center top';
-  }
-  
-  // Add overflow hidden to character area to crop excess
-  if (characterArea) {
-    characterArea.style.overflow = 'hidden';
-  }
+  // Ensure page stays at top
+  forceScrollToTop();
   
   // Create the pinned header with two separate elements
   const headerDiv = document.createElement('div');
@@ -256,6 +267,9 @@ function initTerminal() {
       input.value = '';
       input.focus();
       output.scrollTop = output.scrollHeight;
+      
+      // Ensure page stays at top after command execution
+      forceScrollToTop();
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (historyIndex > 0) {
@@ -274,7 +288,10 @@ function initTerminal() {
     }
   });
 
-  document.addEventListener('click', () => input.focus());
+  document.addEventListener('click', () => {
+    input.focus();
+    forceScrollToTop(); // Ensure scroll stays at top on click
+  });
 }
 
 // ---------- Dynamic Status Updates ----------
@@ -284,3 +301,6 @@ let startTime = Date.now();
 const style = document.createElement('style');
 style.textContent = '@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }';
 document.head.appendChild(style);
+
+// Continuously force scroll to top
+setInterval(forceScrollToTop, 100);
