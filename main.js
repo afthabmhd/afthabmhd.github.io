@@ -23,7 +23,15 @@ const loadingScreen = document.getElementById('loading-screen');
 const mainTerminal = document.getElementById('main-terminal');
 const beepSound = document.getElementById('beep-sound');
 
-const finalLines = [
+// Check screen size and use appropriate text
+const isMobile = window.innerWidth <= 480;
+const finalLines = isMobile ? [
+  '> AFTAB MUHAMMAD',
+  '> Init Portfolio...',
+  '> Loading...',
+  '> Connecting...',
+  '✔️ Ready.'
+] : [
   '> AFTAB MUHAMMAD',
   '> Initializing Portfolio...',
   '> Loading modules...',
@@ -189,7 +197,7 @@ function initTerminal() {
   const contentArea = document.querySelector('.content-area');
   const characterArea = document.querySelector('.character-area');
   
-  // Make character bigger and crop overflow
+  // Make character bigger and crop overflow for desktop
   const characterImg = document.getElementById('character-png');
   if (characterImg) {
     characterImg.style.width = '500px';
