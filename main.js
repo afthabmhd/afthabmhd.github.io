@@ -1,24 +1,34 @@
-// ---------- Force zoom reset ----------
+// ---------- Force zoom reset to 100% ----------
 function forceZoomReset() {
-  // Force viewport reset
+  // Multiple methods to ensure zoom reset works across different browsers
+  
+  // Method 1: Viewport meta tag reset
   const viewport = document.querySelector('meta[name="viewport"]');
   if (viewport) {
+    // Temporarily change and then reset viewport to force zoom reset
     viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+    setTimeout(() => {
+      viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+    }, 50);
   }
   
-  // Force scroll and zoom reset
+  // Method 2: Scroll to top (helps with zoom reset)
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   
-  // Additional zoom reset methods
+  // Method 3: Visual viewport API (modern browsers)
   if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 100);
-    });
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
+  
+  // Method 4: Force reflow to help with zoom reset
+  document.body.style.transform = 'scale(1)';
+  setTimeout(() => {
+    document.body.style.transform = '';
+  }, 50);
 }
 
 // ---------- Force scroll to top ----------
