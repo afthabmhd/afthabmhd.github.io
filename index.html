@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aftab's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aftab Muhammad - Terminal Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="terminal">
-        <div id="output"></div>
-        <div class="input-line">
-            <span class="prompt">></span>
-            <input type="text" id="input" autofocus>
-            <textarea id="contact-input" class="hidden"></textarea>
-        </div>
+  <!-- Loading -->
+  <div id="loading-screen">
+    <div id="loading-bar-container"><div id="loading-bar"></div></div>
+    <div id="loading-text">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
     </div>
-    <audio id="key-sound" src="key-sound.mp3" preload="auto"></audio>
-    <audio id="enter-sound" src="enter-sound.mp3" preload="auto"></audio>
-    <audio id="clear-sound" src="clear-sound.mp3" preload="auto"></audio>
+  </div>
+
+  <!-- Main -->
+  <div id="main-terminal" class="hidden">
+    <div id="title-block">
+      <h1>AFTAB MUHAMMAD</h1>
+      <p class="tag-line">Developer. Writer. Teacher</p>
+    </div>
+
+    <div class="content-area">
+      <div id="terminal-output"></div>
+      <div id="terminal-input">
+        <span class="prompt">welcome@portfolio:~ $</span>
+        <input type="text" id="command-input" placeholder="type your command here..." autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="character-area">
+      <img id="character-png" src="assets/gifs/char.gif" width="320" alt="Pixel Character">
+    </div>
+  </div>
+
+  <audio id="beep-sound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+  </audio>
+
+  <script src="main.js"></script>
 </body>
 </html>
