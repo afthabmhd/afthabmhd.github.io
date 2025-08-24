@@ -2129,6 +2129,17 @@
                 gap: 1.5rem;
             }
 
+            /* Ensure typewriter text is fully visible on mobile */
+            #typewriter-text {
+                font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+                line-height: 1.5;
+                max-height: none !important;
+                overflow: visible !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+            }
+
             /* Mobile header emoji styling */
             .header-emoji {
                 width: 2.75rem !important;
@@ -2160,17 +2171,6 @@
             /* Shorten terminal body content on mobile */
             .terminal-body h2::after {
                 display: none;
-            }
-            
-            /* Hide secondary paragraphs on mobile */
-            .terminal-body p:not(:first-of-type) {
-                display: none;
-            }
-            
-            /* Reduce typewriter text length */
-            #typewriter-text {
-                max-height: 150px;
-                overflow: hidden;
             }
             
             /* Social icons mobile optimization */
