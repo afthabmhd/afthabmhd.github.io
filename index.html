@@ -3856,36 +3856,6 @@
             });
         }
 
-        // Mobile Gesture Support
-        function initMobileGestures() {
-            let startY = 0;
-            let currentSection = 0;
-            const sections = ['landing', 'about', 'portfolio', 'testimonials', 'contact'];
-            
-            document.addEventListener('touchstart', (e) => {
-                startY = e.touches[0].clientY;
-            });
-            
-            document.addEventListener('touchend', (e) => {
-                const endY = e.changedTouches[0].clientY;
-                const diff = startY - endY;
-                
-                if (Math.abs(diff) > 50) { // Minimum swipe distance
-                    if (diff > 0 && currentSection < sections.length - 1) {
-                        // Swipe up - next section
-                        currentSection++;
-                    } else if (diff < 0 && currentSection > 0) {
-                        // Swipe down - previous section
-                        currentSection--;
-                    }
-                    
-                    document.getElementById(sections[currentSection]).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-
         // Enhanced Contact Form with Validation and Session Storage
         function initContactForm() {
             const form = document.getElementById('contactForm');
@@ -4054,9 +4024,6 @@
                 initMatrixRain();
                 initTerminalInterface();
                 initContactForm(); // Add contact form initialization
-                if (window.innerWidth <= 768) {
-                    initMobileGestures();
-                }
             }, 4000); // Start after boot sequence
         });
 
