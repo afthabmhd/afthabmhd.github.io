@@ -1945,6 +1945,15 @@
             .about-image.mobile {
                 display: none;
             }
+            
+            /* Desktop Content Visibility */
+            .desktop-text {
+                display: block;
+            }
+            
+            .mobile-text {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -2137,6 +2146,31 @@
             .about-header-image img {
                 width: 50px;
                 height: 50px;
+            }
+
+            /* Mobile Content Optimization - Hide verbose text */
+            .desktop-text {
+                display: none;
+            }
+            
+            .mobile-text {
+                display: block;
+            }
+            
+            /* Shorten terminal body content on mobile */
+            .terminal-body h2::after {
+                display: none;
+            }
+            
+            /* Hide secondary paragraphs on mobile */
+            .terminal-body p:not(:first-of-type) {
+                display: none;
+            }
+            
+            /* Reduce typewriter text length */
+            #typewriter-text {
+                max-height: 150px;
+                overflow: hidden;
             }
             
             /* Social icons mobile optimization */
@@ -2412,7 +2446,8 @@
                 </header>
                 <div class="terminal-body">
                     <h2 id="portfolio-heading">COMPILED_PROJECTS</h2>
-                    <p>// Recently compiled applications and interactive experiences</p>
+                    <p class="desktop-text">// Recently compiled applications and interactive experiences</p>
+                    <p class="mobile-text">// Latest projects</p>
                     <div class="portfolio-grid">
                         <div class="portfolio-item" onclick="openProjectModal('araknid')">
                             <img src="https://placehold.co/600x400/1a1a1a/ff6b6b?text=ARAKNID.EXE" 
@@ -2706,12 +2741,14 @@
                 </header>
                 <div class="terminal-body">
                     <h2 id="messages-heading">DROP_A_MESSAGE</h2>
-                    <p>// Share your thoughts about my work, projects, or potential collaborations</p>
+                    <p class="desktop-text">// Share your thoughts about my work, projects, or potential collaborations</p>
+                    <p class="mobile-text">// Get in touch</p>
                     <div class="message-encouragement">
                         <div class="message-content">
                             <div class="message-icon">💌</div>
                             <h3>Your Feedback Matters</h3>
-                            <p>Have thoughts about my projects? Interested in collaborating? Want to discuss tech or share ideas? I'd love to hear from you!</p>
+                            <p class="desktop-text">Have thoughts about my projects? Interested in collaborating? Want to discuss tech or share ideas? I'd love to hear from you!</p>
+                            <p class="mobile-text">Got ideas or feedback? Let's connect!</p>
                             <div class="message-suggestions">
                                 <div class="suggestion-item">
                                     <span class="suggestion-icon">🤝</span>
@@ -2731,7 +2768,8 @@
                                 </div>
                             </div>
                             <div class="message-cta">
-                                <p>Drop me a message through the contact section below or reach out on social media. Every message is read and appreciated!</p>
+                                <p class="desktop-text">Drop me a message through the contact section below or reach out on social media. Every message is read and appreciated!</p>
+                                <p class="mobile-text">Contact me below or connect on social media!</p>
                                 <div class="cta-buttons">
                                     <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="cta-btn primary">
                                         📮 Send Message
@@ -2756,7 +2794,8 @@
                 </header>
                 <div class="terminal-body">
                     <h2 id="contact-heading">INIT_CONNECTION</h2>
-                    <p>// Establishing secure communication channel...</p>
+                    <p class="desktop-text">// Establishing secure communication channel...</p>
+                    <p class="mobile-text">// Get in touch</p>
                     <form class="contact-form" id="contactForm">
                         <div class="form-group active" id="nameGroup">
                             <label for="name">USER_NAME:</label>
@@ -3203,7 +3242,9 @@
 > 
 > I'm currently pursuing a Bachelor's in Computer Science Engineering, exploring everything from sleek UIs to systems that solve real problems. Along the way, I've taught Math, Physics, and Computer Science, sharing knowledge and learning more in the process.
 > 
-> When I'm not deep in a project, debugging at 2 AM, or drinking far too much coffee, you'll probably find me writing poems, reading something new, playing football, or planning my next trip. This site is my little corner of the internet—a mix of things I've built, things I'm proud of, and ideas I'm still chasing.
+> This site is my little corner of the internet—a mix of things I've built, things I'm proud of, and ideas I'm still chasing.
+> 
+> When I'm not deep in a project, debugging at 2 AM, or drinking far too much coffee, you'll probably find me writing poems, reading something new, playing football, or planning my next trip.
 > 
 > STATUS: READY FOR NEW MISSIONS █`;
 
@@ -4364,6 +4405,11 @@
             
             .feature-icon {
                 margin-bottom: 6px;
+            }
+            
+            /* Hide message suggestions on mobile for cleaner look */
+            .message-suggestions {
+                display: none;
             }
         }
 
